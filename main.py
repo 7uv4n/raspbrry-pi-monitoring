@@ -11,7 +11,17 @@ y_ram_vals = [0 for _ in range(0, 100)]
 
 index = count()
 
+
 file_path = 'cpu_ram_usage.csv'
+
+# Step 1: Read the first line
+with open(file_path, 'r') as file:
+    first_line = file.readline().rstrip()  # Read and strip newline character
+
+# Step 2: Reopen the file in write mode to truncate it
+with open(file_path, 'w') as file:
+    # Step 3:file_pathWrite back the first line
+    file.write(first_line + '\n')  # Write the first line with a newline
 
 def animate(i):
     global y_cpu_vals, y_ram_vals
