@@ -5,13 +5,13 @@ from matplotlib.animation import FuncAnimation
 import psutil
 
 plt.style.use('fivethirtyeight')
-
 x_vals = [i for i in range(0, 100)]
 y_cpu_vals = [0 for _ in range(0, 100)]
 y_ram_vals = [0 for _ in range(0, 100)]
 
 index = count()
 
+file_path = 'cpu_ram_usage.csv'
 
 def animate(i):
     global y_cpu_vals, y_ram_vals
@@ -19,6 +19,10 @@ def animate(i):
     cpu_percent = psutil.cpu_percent(interval=0.001)
     ram_percent = psutil.virtual_memory().percent
     
+    # Open the file in append mode and write the new line of text
+    with open(file_path, 'a') as file:
+        file.write(str(cpu_percent) + ',' + str(ram_percent) + '\n')
+
     y_cpu_vals.append(cpu_percent)
     y_cpu_vals = y_cpu_vals[1:]  # Truncate CPU list to keep fixed length
     
